@@ -1,4 +1,4 @@
-const battleBackgroundImage = new Image()
+/* const battleBackgroundImage = new Image()
 battleBackgroundImage.src = './img/battleBackground.png'
 const battleBackground = new sprite({
   position:{
@@ -515,3 +515,5 @@ document.querySelector('#dialogueBox').addEventListener('click', (e) => {
   } else e.currentTarget.style.display = 'none'
 
 })
+
+*/

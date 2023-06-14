@@ -1,4 +1,4 @@
-const attacks = {
+/*const attacks = {
   Batida: {
     name:'Batida', 
     damage: 10, 
@@ -19,3 +19,5 @@ const attacks = {
     damage: 30, 
     type:'spec'
   } }
+
+  */

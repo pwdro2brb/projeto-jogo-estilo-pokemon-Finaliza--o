@@ -1,4 +1,4 @@
-const embyImage = new Image()//Imagem do EMBY
+/*const embyImage = new Image()//Imagem do EMBY
 embyImage.src = './img/embySprite.png'
 
 const draggleImage = new Image()//imagem do DRAGGLE
@@ -33,3 +33,4 @@ const monsters = {
   name: 'Dragle'
   }
 }
+*/

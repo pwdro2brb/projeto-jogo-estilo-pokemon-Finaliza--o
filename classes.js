@@ -1,4 +1,4 @@
-class sprite {
+/*class sprite {
   constructor({
     position,
     image,
@@ -366,4 +366,4 @@ const specialImage = new Image()//constante para chamar a imagem da bola de fogo
     }
   
 }
-         
+   */      
