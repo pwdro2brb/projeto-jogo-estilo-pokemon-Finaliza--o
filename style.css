@@ -1,0 +1,28 @@
+*{
+  font-family: 'Press Start 2P', cursive;
+  text-align: center;
+}
+body {
+   margin: 0;
+  background-color: black ;
+  text-align: center;
+}
+button{
+
+
+
+  border:0.5px solid black;
+  font-size:1.2em;
+  color:black;
+  outline:none;
+  cursor:pointer;
+text-align: center;
+}
+button:hover {
+  background-color:#ababab;
+}
+h1{
+  font-size: 20px;
+  margin: 0;
+  text-align: center;
+}
