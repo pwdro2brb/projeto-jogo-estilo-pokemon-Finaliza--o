@@ -12,7 +12,9 @@ for (let i = 0; i < collisions.length; i += 70){
   collisionsMap.push(collisions.slice(i, 70 + i))
 }
 
-class boundary {
+class Boundary {
+  static width = 48 
+  static height = 48
   constructor({position}) {
     this.position = position
     this.width = 48
@@ -27,11 +29,27 @@ class boundary {
 
 const boundaries = []
 
-collisionsMap.forEach((row) => {
-  row.forEach((Symbol) => {
-    console.log(Symbol)
+const offset = {
+  x: -570,
+  y: -780
+}
+
+collisionsMap.forEach((row, i) => {
+  row.forEach((Symbol, j) => {
+    if (Symbol ===1044) {
+      boundaries.push(
+       new Boundary({
+         position: {
+           x: j * Boundary.width + offset.x,
+           y: i * Boundary.height + offset.y
+         }
+       })
+      )
+    }
   })
 });
+
+console.log(boundaries)
 
 const image = new Image();
 image.src='./img/pallet town.png';
@@ -52,8 +70,8 @@ class Sprite {
 
 const background = new Sprite({
   position: {
-    x: -570,
-    y: -780
+    x: offset.x,
+    y: offset.y
   },
   image: image
 })
@@ -76,6 +94,9 @@ const keys = {
 function animate() {
   window.requestAnimationFrame(animate)
   background.draw()
+  boundaries.forEach(boundary => {
+    boundary.draw()
+  })
   c.drawImage(
     playerImage,
     0,
