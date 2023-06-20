@@ -7,8 +7,31 @@ document.querySelector('#userInterface').style.display = 'none'//linha para os c
 canvas.width = 1024;
 canvas.height = 576;
 
-c.fillStyle = 'white';
-c.fillRect(0, 0, canvas.width, canvas.height);
+const collisionsMap = []
+for (let i = 0; i < collisions.length; i += 70){
+  collisionsMap.push(collisions.slice(i, 70 + i))
+}
+
+class boundary {
+  constructor({position}) {
+    this.position = position
+    this.width = 48
+    this.height = 48
+  }
+
+  draw() {
+    c.fillStyle = 'red'
+    c.fillRect(this.position.x, this.position.y, this.width, this.height)
+  }
+}
+
+const boundaries = []
+
+collisionsMap.forEach((row) => {
+  row.forEach((Symbol) => {
+    console.log(Symbol)
+  })
+});
 
 const image = new Image();
 image.src='./img/pallet town.png';
