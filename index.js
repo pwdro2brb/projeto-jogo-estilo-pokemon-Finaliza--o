@@ -12,9 +12,14 @@ for (let i = 0; i < collisions.length; i += 70){
   collisionsMap.push(collisions.slice(i, 70 + i))
 }
 
+const battleZonesMap = []
+for (let i = 0; i < battleZonesData.length; i += 70){
+  battleZonesMap.push(battleZonesData.slice(i, 70 + i))
+}
+
+console.log(battleZonesMap)
 
 const boundaries = []
-
 const offset = {
   x: -500,
   y: -810
@@ -34,6 +39,25 @@ collisionsMap.forEach((row, i) => {
     }
   })
 });
+
+const battleZones = []
+
+battleZonesMap.forEach((row, i) => {
+  row.forEach((Symbol, j) => {
+    if (Symbol === 1044) {
+      battleZones.push(
+       new Boundary({
+         position: {
+           x: j * Boundary.width + offset.x,
+           y: i * Boundary.height + offset.y
+         }
+       })
+      )
+    }
+  })
+});
+
+console.log(battleZones)
 
 const image = new Image();
 image.src='./img/pallet town.png';
