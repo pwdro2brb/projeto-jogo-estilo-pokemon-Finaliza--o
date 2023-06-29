@@ -1,7 +1,7 @@
 
 const canvas = document.querySelector('canvas');//seleciona a tag canvas no html para adiconar as edições por meio do javascript
 const c = canvas.getContext('2d');//tipo do canvas
-console.log(gsap)
+
 
 document.querySelector('#userInterface').style.display = 'none'//linha para os campos de batalha não aparecer no mapa
 
@@ -146,7 +146,7 @@ const battle = {
 }
 
 function animate() {
-  window.requestAnimationFrame(animate)
+  const animationId = window.requestAnimationFrame(animate)
   background.draw()
   boundaries.forEach((boundary) => {
     boundary.draw()
@@ -160,6 +160,7 @@ function animate() {
   let moving = true
   player.moving = false
 
+  console.log(animationId)
   if (battle.initiated) return
   // Ativa a batalha
 
@@ -181,10 +182,29 @@ function animate() {
         rectangle2: battleZone
       }) &&
       overlappingArea >  (player.width * player.height) / 2
-      && Math.random() < 0.03
+      && Math.random() < 0.02
       ) {
-        battle.initiated = true
         console.log("Ativou a batalha")
+
+        //Desativa o atual loop de animação
+        window.cancelAnimationFrame(animationId)
+
+        battle.initiated = true
+        gsap.to('#overlappingDiv', {
+          opacity: 1,
+          repeat: 3,
+          yoyo: true,
+          duration: 0.4,
+          onComplete() {
+            gsap.to("#overlappingDiv", {
+              opacity: 1,
+              duration: 0.4
+            })
+
+            //Ativa um novo loop de animação
+
+          }
+        })
         break
       }
     }
