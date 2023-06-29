@@ -1,6 +1,7 @@
 
 const canvas = document.querySelector('canvas');//seleciona a tag canvas no html para adiconar as edições por meio do javascript
 const c = canvas.getContext('2d');//tipo do canvas
+console.log(gsap)
 
 document.querySelector('#userInterface').style.display = 'none'//linha para os campos de batalha não aparecer no mapa
 
@@ -16,8 +17,6 @@ const battleZonesMap = []
 for (let i = 0; i < battleZonesData.length; i += 70){
   battleZonesMap.push(battleZonesData.slice(i, 70 + i))
 }
-
-console.log(battleZonesMap)
 
 const boundaries = []
 const offset = {
@@ -56,8 +55,6 @@ battleZonesMap.forEach((row, i) => {
     }
   })
 });
-
-console.log(battleZones)
 
 const image = new Image();
 image.src='./img/pallet town.png';
@@ -144,6 +141,10 @@ function rectangularCollision ({ rectangle1, rectangle2 }) {
   )
 }
 
+const battle = {
+  initiated: false
+}
+
 function animate() {
   window.requestAnimationFrame(animate)
   background.draw()
@@ -155,6 +156,12 @@ function animate() {
   })
   player.draw()
   foreground.draw()
+
+  let moving = true
+  player.moving = false
+
+  if (battle.initiated) return
+  // Ativa a batalha
 
   if (keys.w.pressed|| keys.a.pressed|| keys.s.pressed|| keys.d.pressed){
     for (let i = 0; i < battleZones.length; i++) {
@@ -174,16 +181,16 @@ function animate() {
         rectangle2: battleZone
       }) &&
       overlappingArea >  (player.width * player.height) / 2
-      && Math.random() < 0.01
+      && Math.random() < 0.03
       ) {
-        console.log('colisão no mo modo batalha')
+        battle.initiated = true
+        console.log("Ativou a batalha")
         break
       }
     }
   }
 
-  let moving = true
-  player.moving = false
+
   if (keys.w.pressed && lastKey === 'w') {
   player.moving = true
   player.image = up
