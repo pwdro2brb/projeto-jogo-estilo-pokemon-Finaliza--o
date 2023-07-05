@@ -43,7 +43,7 @@ const battleZones = []
 
 battleZonesMap.forEach((row, i) => {
   row.forEach((Symbol, j) => {
-    if (Symbol === 1044) {
+    if (Symbol > 0) {
       battleZones.push(
        new Boundary({
          position: {
