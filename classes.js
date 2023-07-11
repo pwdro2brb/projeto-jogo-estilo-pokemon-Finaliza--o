@@ -1,5 +1,11 @@
 class sprite {
-  constructor({position, image, frames = { max: 1} }, sprites) {
+  constructor({
+    position,
+    image,
+    frames = { max: 1 },
+    sprites,
+    animate = false
+    }) {
     this.position = position
     this.image = image
     this.frames = { ...frames, val: 0, elapsed: 0 }
@@ -8,7 +14,7 @@ class sprite {
       this.width = this.image.width / this.frames.max
       this.height = this.image.height
     }
-    this.moving = false
+    this.animate = animate
     this.sprites = sprites
   }
 
@@ -24,7 +30,8 @@ class sprite {
       this.image.width / this.frames.max,
       this.image.height
     )
-    if (!this.moving) return
+    if (!this.animate) return
+
     if (this.frames.max > 1){
       this.frames.elapsed++
     }
@@ -70,7 +77,7 @@ class Boundary {
       this.width = (this.image.width / this.frames.max) * scale
       this.height = this.image.height * scale
     }
-    this.moving = false
+    this.animate = false
     this.image.src = image.src
     this.name = name
     this.animate = animate
