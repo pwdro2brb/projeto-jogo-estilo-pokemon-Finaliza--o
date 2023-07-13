@@ -3,7 +3,7 @@ const canvas = document.querySelector('canvas');//seleciona a tag canvas no html
 const c = canvas.getContext('2d');//tipo do canvas
 
 
-document.querySelector('#userInterface').style.display = 'none'//linha para os campos de batalha não aparecer no mapa
+//document.querySelector('#userInterface').style.display = 'none'//linha para os campos de batalha não aparecer no mapa
 
 canvas.width = 1024;
 canvas.height = 576;
@@ -339,8 +339,8 @@ const embyImage = new Image()
 embyImage.src = './img/embySprite.png'
 const emby = new sprite({
   position:{
-    x:310,
-    y:330
+    x:280,
+    y:325
   },
   image: embyImage, 
   frames: {
