@@ -17,6 +17,7 @@ class sprite {
     this.animate = animate
     this.sprites = sprites
     this.opacity = 1
+    this.health = 100
   }
 
   draw() {
@@ -52,7 +53,12 @@ class sprite {
       }).to(this.position,{
         x: this.position.x + 40,
         duration: 0.05,
-        onComplete(){
+        onComplete: () => {
+          //Onde o inimigo realmente leva a porrada
+          gsap.to('#enemyHealthBar', {
+            width: this.health - attack.damage + '%'
+          })
+
           gsap.to(recipient.position, {
             x: recipient.position.x + 10,
             yoyo:true,
@@ -62,7 +68,10 @@ class sprite {
           })
 
           gsap.to(recipient, {
-            opacity: 0
+            opacity: 0,
+            repeat: 5,
+            yoyo: true,
+            duration: 0.08
           })
         }
       }).to(this.position,{
