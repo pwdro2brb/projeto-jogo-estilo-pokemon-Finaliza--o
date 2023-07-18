@@ -4,7 +4,8 @@ class sprite {
     image,
     frames = { max: 1, hold: 10 },
     sprites,
-    animate = false
+    animate = false,
+    isEnemy = false
     }) {
     this.position = position
     this.image = image
@@ -18,6 +19,7 @@ class sprite {
     this.sprites = sprites
     this.opacity = 1
     this.health = 100
+    this.isEnemy = isEnemy
   }
 
   draw() {
@@ -48,15 +50,24 @@ class sprite {
     }
     attack ({attack, recipient}) {
       const tl = gsap.timeline()
+
+      this.health -= attack.damage
+
+      let movementDistance = 20
+      if(this.isEnemy) movementDistance = -20
+
+      let healthbar = '#enemyHealthBar'
+      if (this.isEnemy) healthbar = '#playerHealthBar'
+
       tl.to(this.position, {
-        x: this.position.x - 20
+        x: this.position.x - movementDistance
       }).to(this.position,{
-        x: this.position.x + 40,
+        x: this.position.x + movementDistance * 2,
         duration: 0.05,
         onComplete: () => {
           //Onde o inimigo realmente leva a porrada
-          gsap.to('#enemyHealthBar', {
-            width: this.health - attack.damage + '%'
+          gsap.to(healthbar, {
+            width: this.health + '%'
           })
 
           gsap.to(recipient.position, {

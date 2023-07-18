@@ -332,7 +332,8 @@ const draggle = new sprite({
     max: 4,
     hold: 30
   },
-  animate: true
+  animate: true,
+  isEnemy: true
 })
 
 const embyImage = new Image()
