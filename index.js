@@ -359,6 +359,20 @@ function animateBattle() {
 
 animateBattle()
 
+document.querySelectorAll('button').forEach((button) => {
+  button.addEventListener('click', () => {
+    emby.attack({ attack: {
+      name: 'Ataque',
+      damage: 10,
+      type: 'Normal'
+    },
+    recipient: draggle
+  })
+  })
+})
+
+
+
 let lastKey = ''
 window.addEventListener('keydown', (e) =>{
   switch (e.key){
