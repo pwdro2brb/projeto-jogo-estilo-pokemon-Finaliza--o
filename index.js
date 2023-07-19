@@ -361,14 +361,12 @@ function animateBattle() {
 animateBattle()
 
 document.querySelectorAll('button').forEach((button) => {
-  button.addEventListener('click', () => {
-    emby.attack({ attack: {
-      name: 'Ataque',
-      damage: 10,
-      type: 'Normal'
-    },
-    recipient: draggle
-  })
+  button.addEventListener('click', (e) => {
+    const selectedAttack = attacks[e.currentTarget.innerHTML]
+    emby.attack({ 
+      attack: selectedAttack,
+      recipient: draggle
+    })
   })
 })
 

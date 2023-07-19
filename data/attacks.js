@@ -1,23 +1,22 @@
-/*const attacks = {
-  Batida: {
-    name:'Batida', 
+const attacks = {
+  Ataque: {
+    name:'Ataque', 
     damage: 10, 
-    type:'normal' 
+    type:'Normal' 
   }, 
-  fireball: { 
-    name:'fireball',
+  Bola_de_fogo: { 
+    name:'Bola de fogo',
     damage: 25, 
-    type:'fire' 
+    type:'Fire' 
   },
-  batidao: { 
-    name:'batidao', 
+  Impulso_Violento: { 
+    name:'Impulso violento', 
     damage: 20, 
-    type:'big' 
+    type:'StrongAttack' 
   }, 
-  spec: { 
-    name:'spec', 
+  Explosão_De_Ions: { 
+    name:'Explosão de ions', 
     damage: 30, 
-    type:'spec'
-  } }
-
-  */
+    type:'Explosion'
+  } 
+}
