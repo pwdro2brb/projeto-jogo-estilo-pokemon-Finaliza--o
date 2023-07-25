@@ -48,47 +48,99 @@ class sprite {
         else this.frames.val = 0
       }      
     }
-    attack ({attack, recipient}) {
-      const tl = gsap.timeline()
-
-      this.health -= attack.damage
-
-      let movementDistance = 20
-      if(this.isEnemy) movementDistance = -20
-
+    attack ({attack, recipient, renderedSprites}) {
       let healthbar = '#enemyHealthBar'
       if (this.isEnemy) healthbar = '#playerHealthBar'
 
-      tl.to(this.position, {
-        x: this.position.x - movementDistance
-      }).to(this.position,{
-        x: this.position.x + movementDistance * 2,
-        duration: 0.05,
-        onComplete: () => {
-          //Onde o inimigo realmente leva a porrada
-          gsap.to(healthbar, {
-            width: this.health + '%'
+
+      switch(attack.name) {
+        case 'Bola de fogo':
+          const fireballImage= new Image()
+          fireballImage.src = './img/fireball.png'
+          const fireball = new sprite ({
+            position:{
+              x: this.position.x,
+              y: this.position.y
+            },
+            image: fireballImage,
+            frames: {
+              max: 4,
+              hold: 10
+            },
+            animate: true
           })
 
-          gsap.to(recipient.position, {
-            x: recipient.position.x + 10,
-            yoyo:true,
-            repeat: 5,
-            duration: 0.08,
-            opacity: 0 
+          renderedSprites.push(fireball)
+
+          gsap.to(fireball.position, {
+            x: recipient.position.x,
+            y: recipient.position.y,
+            onComplete: () => {
+              //Onde o inimigo realmente leva a porrada
+              gsap.to(healthbar, {
+                width: this.health + '%'
+              })
+    
+              gsap.to(recipient.position, {
+                x: recipient.position.x + 10,
+                yoyo:true,
+                repeat: 5,
+                duration: 0.08,
+                opacity: 0 
+              })
+    
+              gsap.to(recipient, {
+                opacity: 0,
+                repeat: 5,
+                yoyo: true,
+                duration: 0.08
+              })
+              renderedSprites.pop()
+            }
           })
 
-          gsap.to(recipient, {
-            opacity: 0,
-            repeat: 5,
-            yoyo: true,
-            duration: 0.08
+        break
+        case 'Ataque':
+          const tl = gsap.timeline()
+
+          this.health -= attack.damage
+    
+          let movementDistance = 20
+          if(this.isEnemy) movementDistance = -20
+    
+             
+          tl.to(this.position, {
+            x: this.position.x - movementDistance
+          }).to(this.position,{
+            x: this.position.x + movementDistance * 2,
+            duration: 0.05,
+            onComplete: () => {
+              //Onde o inimigo realmente leva a porrada
+              gsap.to(healthbar, {
+                width: this.health + '%'
+              })
+    
+              gsap.to(recipient.position, {
+                x: recipient.position.x + 10,
+                yoyo:true,
+                repeat: 5,
+                duration: 0.08,
+                opacity: 0 
+              })
+    
+              gsap.to(recipient, {
+                opacity: 0,
+                repeat: 5,
+                yoyo: true,
+                duration: 0.08
+              })
+            }
+          }).to(this.position,{
+            x: this.position.x 
           })
-        }
-      }).to(this.position,{
-        x: this.position.x 
-      })
-    }
+        }    
+      }
+      
 }
 
 class Boundary {
