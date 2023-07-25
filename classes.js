@@ -5,7 +5,8 @@ class sprite {
     frames = { max: 1, hold: 10 },
     sprites,
     animate = false,
-    isEnemy = false
+    isEnemy = false,
+    rotation = 0
     }) {
     this.position = position
     this.image = image
@@ -20,10 +21,20 @@ class sprite {
     this.opacity = 1
     this.health = 100
     this.isEnemy = isEnemy
+    this.rotation = rotation
   }
 
   draw() {
     c.save()
+    c.translate(
+      this.position.x + this.width / 2, 
+      this.position.y + this.height / 2
+    )
+    c.rotate(this.rotation)
+    c.translate(
+      -this.position.x - this.width / 2, 
+      -this.position.y - this.height / 2
+    )
     c.globalAlpha = this.opacity
     c.drawImage(
       this.image,
@@ -52,6 +63,10 @@ class sprite {
       let healthbar = '#enemyHealthBar'
       if (this.isEnemy) healthbar = '#playerHealthBar'
 
+      this.health -= attack.damage
+
+      let rotation = 1 
+      if (this.isEnemy) rotation = -2.2
 
       switch(attack.name) {
         case 'Bola de fogo':
@@ -67,10 +82,11 @@ class sprite {
               max: 4,
               hold: 10
             },
-            animate: true
+            animate: true,
+            rotation
           })
 
-          renderedSprites.push(fireball)
+          renderedSprites.splice(1, 0, fireball)
 
           gsap.to(fireball.position, {
             x: recipient.position.x,
@@ -95,7 +111,7 @@ class sprite {
                 yoyo: true,
                 duration: 0.08
               })
-              renderedSprites.pop()
+              renderedSprites.splice(1, 1)
             }
           })
 

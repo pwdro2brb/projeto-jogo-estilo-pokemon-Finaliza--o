@@ -1,17 +1,17 @@
 const attacks = {
   Ataque: {
     name:'Ataque', 
-    damage: 10, 
+    damage: 5, 
     type:'Normal' 
   }, 
   Bola_de_fogo: { 
     name:'Bola de fogo',
-    damage: 25, 
+    damage: 20, 
     type:'Fire' 
   },
   Impulso_Violento: { 
     name:'Impulso violento', 
-    damage: 20, 
+    damage: 15, 
     type:'StrongAttack' 
   }, 
   Explosão_De_Ions: { 
