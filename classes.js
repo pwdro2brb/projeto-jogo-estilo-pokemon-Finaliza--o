@@ -157,6 +157,51 @@ class sprite {
             x: this.position.x 
           })
         break
+        case 'Explosão de ions':
+          const explosãoDeIonsImage= new Image()
+          explosãoDeIonsImage.src = './img/Special attack1.png'
+          const explosãoDeIons = new sprite ({
+            position:{
+              x: recipient.position.x,
+              y: recipient.position.y
+            },
+            image: explosãoDeIonsImage,
+            frames: {
+              max: 18,
+              hold: 3
+            },
+            animate: true
+          })
+
+          renderedSprites.splice(1, 0, explosãoDeIons)
+
+          gsap.to(explosãoDeIons.position, {
+            duration: 0.8,
+            onComplete: () => {
+              //Onde o inimigo realmente leva a porrada
+              gsap.to(healthbar, {
+                width: this.health + '%'
+              })
+    
+              gsap.to(recipient.position, {
+                x: recipient.position.x + 10,
+                yoyo:true,
+                repeat: 5,
+                duration: 0.08,
+                opacity: 0 
+              })
+    
+              gsap.to(recipient, {
+                opacity: 0,
+                repeat: 5,
+                yoyo: true,
+                duration: 0.08
+              })
+              renderedSprites.splice(1, 1)
+            }
+          })
+          
+        break
         case 'Ataque':
           
 
