@@ -65,6 +65,10 @@ class sprite {
 
       this.health -= attack.damage
 
+      const tl = gsap.timeline()
+    
+      let movementDistance = 20
+
       let rotation = 1 
       if (this.isEnemy) rotation = -2.2
 
@@ -116,15 +120,48 @@ class sprite {
           })
 
         break
-        case 'Ataque':
-          const tl = gsap.timeline()
+        case 'Impulso violento':
 
-          this.health -= attack.damage
     
-          let movementDistance = 20
-          if(this.isEnemy) movementDistance = -20
+          movementDistance = 100
+          if(this.isEnemy) movementDistance = -50
     
              
+          tl.to(this.position, {
+            x: this.position.x - movementDistance
+          }).to(this.position,{
+            x: this.position.x + movementDistance * 2,
+            duration: 0.05,
+            onComplete: () => {
+              //Onde o inimigo realmente leva a porrada
+              gsap.to(healthbar, {
+                width: this.health + '%'
+              })
+    
+              gsap.to(recipient.position, {
+                x: recipient.position.x + 10,
+                yoyo:true,
+                repeat: 5,
+                duration: 0.08,
+                opacity: 0 
+              })
+    
+              gsap.to(recipient, {
+                opacity: 0,
+                repeat: 5,
+                yoyo: true,
+                duration: 0.08
+              })
+            }
+          }).to(this.position,{
+            x: this.position.x 
+          })
+        break
+        case 'Ataque':
+          
+
+          if(this.isEnemy) movementDistance = -20
+
           tl.to(this.position, {
             x: this.position.x - movementDistance
           }).to(this.position,{
