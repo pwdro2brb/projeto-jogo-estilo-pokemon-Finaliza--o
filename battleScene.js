@@ -53,6 +53,8 @@ function animateBattle() {
 
 animateBattle()
 
+const queue = []
+
 document.querySelectorAll('button').forEach((button) => {
   button.addEventListener('click', (e) => {
     const selectedAttack = attacks[e.currentTarget.innerHTML]
@@ -61,12 +63,28 @@ document.querySelectorAll('button').forEach((button) => {
       recipient: draggle,
       renderedSprites
     })
+    queue.push(() =>{
+      draggle.attack({
+        attack: attacks.Ataque,
+        recipient: emby,
+        renderedSprites
+      })
+    })
+    queue.push(() =>{
+      draggle.attack({
+        attack: attacks.Bola_de_fogo,
+        recipient: emby,
+        renderedSprites
+      })
+    })
   })
 })
 
 document.querySelector('#dialogueBox').addEventListener('click', (e) => {
-  e.currentTarget.style.display = 'none'
-  console.log('clicou no dialogo')
+  if (queue.length > 0){
+    queue[0]()
+    queue.shift()
+  }else e.currentTarget.style.display = 'none'
 })
 /* const battleBackgroundImage = new Image()
 battleBackgroundImage.src = './img/battleBackground.png'
