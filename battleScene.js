@@ -1,3 +1,73 @@
+const battleBackgroundImage = new Image()
+battleBackgroundImage.src = './img/battleBackground.png'
+const battleBackground = new sprite({
+  position:{
+    x:0,
+    y:0
+  },
+  image: battleBackgroundImage
+})
+
+const draggleImage = new Image()
+draggleImage.src = './img/draggleSprite.png'
+const draggle = new sprite({
+  position:{
+    x:800,
+    y:100
+  },
+  image: draggleImage, 
+  frames: {
+    max: 4,
+    hold: 30
+  },
+  animate: true,
+  isEnemy: true,
+  name: "draggle"
+})
+
+const embyImage = new Image()
+embyImage.src = './img/embySprite.png'
+const emby = new sprite({
+  position:{
+    x:280,
+    y:325
+  },
+  image: embyImage, 
+  frames: {
+    max: 4,
+    hold: 30
+  },
+  animate: true,
+  name: "emby"
+})
+
+const renderedSprites = [draggle, emby]
+function animateBattle() {
+  window.requestAnimationFrame(animateBattle)
+  battleBackground.draw()
+
+  renderedSprites.forEach((sprite) => {
+    sprite.draw()
+  })
+}
+
+animateBattle()
+
+document.querySelectorAll('button').forEach((button) => {
+  button.addEventListener('click', (e) => {
+    const selectedAttack = attacks[e.currentTarget.innerHTML]
+    emby.attack({ 
+      attack: selectedAttack,
+      recipient: draggle,
+      renderedSprites
+    })
+  })
+})
+
+document.querySelector('#dialogueBox').addEventListener('click', (e) => {
+  e.currentTarget.style.display = 'none'
+  console.log('clicou no dialogo')
+})
 /* const battleBackgroundImage = new Image()
 battleBackgroundImage.src = './img/battleBackground.png'
 const battleBackground = new sprite({

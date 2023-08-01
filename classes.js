@@ -6,7 +6,8 @@ class sprite {
     sprites,
     animate = false,
     isEnemy = false,
-    rotation = 0
+    rotation = 0,
+    name  
     }) {
     this.position = position
     this.image = image
@@ -22,6 +23,7 @@ class sprite {
     this.health = 100
     this.isEnemy = isEnemy
     this.rotation = rotation
+    this.name = name
   }
 
   draw() {
@@ -60,6 +62,10 @@ class sprite {
       }      
     }
     attack ({attack, recipient, renderedSprites}) {
+      document.querySelector('#dialogueBox').style.display = 'block'
+      document.querySelector('#dialogueBox').innerHTML = 
+      this.name + ' usou ' + attack.name
+
       let healthbar = '#enemyHealthBar'
       if (this.isEnemy) healthbar = '#playerHealthBar'
 
