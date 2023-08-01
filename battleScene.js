@@ -8,40 +8,15 @@ const battleBackground = new sprite({
   image: battleBackgroundImage
 })
 
-const draggleImage = new Image()
-draggleImage.src = './img/draggleSprite.png'
-const draggle = new sprite({
-  position:{
-    x:800,
-    y:100
-  },
-  image: draggleImage, 
-  frames: {
-    max: 4,
-    hold: 30
-  },
-  animate: true,
-  isEnemy: true,
-  name: "draggle"
-})
 
-const embyImage = new Image()
-embyImage.src = './img/embySprite.png'
-const emby = new sprite({
-  position:{
-    x:280,
-    y:325
-  },
-  image: embyImage, 
-  frames: {
-    max: 4,
-    hold: 30
-  },
-  animate: true,
-  name: "emby"
-})
+const draggle = new sprite(monsters.draggle)
+
+const emby = new sprite(monsters.emby)
 
 const renderedSprites = [draggle, emby]
+const button = document.createElement('button')
+button.innerHTML = 'Bola_de_fogo'
+document.querySelector('#attackBox').append(button)
 function animateBattle() {
   window.requestAnimationFrame(animateBattle)
   battleBackground.draw()
