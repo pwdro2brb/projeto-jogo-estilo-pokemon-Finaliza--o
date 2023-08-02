@@ -9,14 +9,17 @@ const battleBackground = new sprite({
 })
 
 
-const draggle = new sprite(monsters.draggle)
-
-const emby = new sprite(monsters.emby)
+const draggle = new Monster(monsters.draggle)
+const emby = new Monster(monsters.emby)
 
 const renderedSprites = [draggle, emby]
-const button = document.createElement('button')
-button.innerHTML = 'Bola_de_fogo'
-document.querySelector('#attackBox').append(button)
+
+emby.attacks.forEach((attack) =>{
+  const button = document.createElement('button')
+  button.innerHTML = attack.name
+  document.querySelector('#attackBox').append(button)
+})
+
 function animateBattle() {
   window.requestAnimationFrame(animateBattle)
   battleBackground.draw()
