@@ -87,6 +87,16 @@ class Monster extends sprite{
     this.isEnemy = isEnemy
     this.attacks = attacks
   }
+  faint() {
+    document.querySelector('#dialogueBox').innerHTML = this.name + ' Caiu!' 
+    gsap.to(this.position, {
+      y:this.position.y + 20
+    })
+    gsap.to(this, {
+      opacity:0
+    })
+  }
+
   attack ({attack, recipient, renderedSprites}) {
     document.querySelector('#dialogueBox').style.display = 'block'
     document.querySelector('#dialogueBox').innerHTML = 
@@ -95,7 +105,7 @@ class Monster extends sprite{
     let healthbar = '#enemyHealthBar'
     if (this.isEnemy) healthbar = '#playerHealthBar'
 
-    this.health -= attack.damage
+    recipient.health -= attack.damage
 
     const tl = gsap.timeline()
   
@@ -130,7 +140,7 @@ class Monster extends sprite{
           onComplete: () => {
             //Onde o inimigo realmente leva a porrada
             gsap.to(healthbar, {
-              width: this.health + '%'
+              width: recipient.health + '%'
             })
   
             gsap.to(recipient.position, {
@@ -167,7 +177,7 @@ class Monster extends sprite{
           onComplete: () => {
             //Onde o inimigo realmente leva a porrada
             gsap.to(healthbar, {
-              width: this.health + '%'
+              width: recipient.health + '%'
             })
   
             gsap.to(recipient.position, {
@@ -212,7 +222,7 @@ class Monster extends sprite{
           onComplete: () => {
             //Onde o inimigo realmente leva a porrada
             gsap.to(healthbar, {
-              width: this.health + '%'
+              width: recipient.health + '%'
             })
   
             gsap.to(recipient.position, {
@@ -247,7 +257,7 @@ class Monster extends sprite{
           onComplete: () => {
             //Onde o inimigo realmente leva a porrada
             gsap.to(healthbar, {
-              width: this.health + '%'
+              width: recipient.health + '%'
             })
   
             gsap.to(recipient.position, {
