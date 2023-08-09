@@ -20,9 +20,13 @@ emby.attacks.forEach((attack) =>{
   document.querySelector('#attackBox').append(button)
 })
 
+let battleAnimationId
+
 function animateBattle() {
-  window.requestAnimationFrame(animateBattle)
+  battleAnimationId = window.requestAnimationFrame(animateBattle)
   battleBackground.draw()
+
+  console.log(battleAnimationId)
 
   renderedSprites.forEach((sprite) => {
     sprite.draw()
@@ -45,6 +49,19 @@ document.querySelectorAll('button').forEach((button) => {
       queue.push(() =>{
         draggle.faint()
       })
+      queue.push(() =>{
+        // Deixa tudo preto
+        gsap.to('#overlappingDiv', {
+          opacity: 1,
+          onComplete: () =>{
+            cancelAnimationFrame(battleAnimationId)
+            animate()
+            gsap.to('#overlappingDiv', {
+              opacity: 0
+            })
+          }
+        }) 
+      })
     }
     
 
@@ -59,8 +76,21 @@ document.querySelectorAll('button').forEach((button) => {
         renderedSprites
       })
       if (emby.health <= 0){
-          queue.push(() =>{
+        queue.push(() =>{
           emby.faint()
+        })
+        queue.push(() =>{
+          // Deixa tudo preto
+          gsap.to('#overlappingDiv', {
+            opacity: 1,
+            onComplete: () =>{
+              cancelAnimationFrame(battleAnimationId)
+              animate()
+              gsap.to('#overlappingDiv', {
+                opacity: 0
+              })
+            }
+          }) 
         })
       }
     })

@@ -19,7 +19,7 @@ const attacks = {
   }, 
   Explosão_De_Ions: { 
     name:'Explosão_De_Ions', 
-    damage: 30, 
+    damage: 300, 
     type:'Explosão',
     color:'rgba' 
   } 
