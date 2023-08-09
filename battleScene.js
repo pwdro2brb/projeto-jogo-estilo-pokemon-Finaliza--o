@@ -56,6 +56,7 @@ document.querySelectorAll('button').forEach((button) => {
           onComplete: () =>{
             cancelAnimationFrame(battleAnimationId)
             animate()
+            document.querySelector('#userInterface').style.display = 'none'
             gsap.to('#overlappingDiv', {
               opacity: 0
             })
@@ -86,6 +87,7 @@ document.querySelectorAll('button').forEach((button) => {
             onComplete: () =>{
               cancelAnimationFrame(battleAnimationId)
               animate()
+              document.querySelector('#userInterface').style.display = 'none'
               gsap.to('#overlappingDiv', {
                 opacity: 0
               })
